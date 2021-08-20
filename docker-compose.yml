@@ -7,28 +7,25 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_DB: stripe-example
     volumes:
-      - db-data:/var/lib/postgresql/data/
+      - db-data:/var/lib/postgresql
     ports:
-      - "5432:5432" 
-      - "28080:28080"
+      - "5435:5432" 
+      - "28084:28080"
     depends_on: 
       - back
-      - front
+      
     
   web:
       image: front:latest
-        depends_on: 
-          - db
-          - back
-        ports: 
-          - "4200:4200"
-          - "28080:28080"
+      depends_on: 
+        
+        - back
+      ports: 
+        - "4200:4200"
+        - "28082:28080"
   back:
-    image: backend:latest
-    depends_on: 
-      - db
-      - front
+    image: servicebackend:latest
     ports: 
-      -"28080:28080"
+      - "28083:28080"
 volumes: 
-  - db-data:
+  db-data: {}
